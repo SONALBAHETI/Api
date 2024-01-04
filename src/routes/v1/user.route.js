@@ -1,17 +1,36 @@
-import express from "express";
-import auth from "../../middlewares/auth.js";
-import validate from "../../middlewares/validate.js";
-import { userValidation } from "../../validation/index.js";
-import { updateUserDetailsFromOnboarding } from "../../controllers/user.controller.js";
+'use client'
+import express from 'express';
+import notesController from '../../controllers/notes.controller.js'; 
+import auth from '../../middlewares/auth.js';
+import validate from '../../middlewares/validate.js';
+import noteValidation from '../../validation/note.validation.js'; 
+import catchAsync from '../../utils/catchAsync.js';
 
 const router = express.Router();
 
 router
-  .route("/:userId/updateUserDetailsFromOnboarding")
+  .route('/')
+  .post(
+    auth('manageNotes'),
+    validate(noteValidation.createNote),
+    catchAsync(notesController.createNote)
+  )
+  .get(
+    auth('getNotes'),
+    catchAsync(notesController.getNotes)
+  );
+
+router
+  .route('/:noteId')
   .patch(
-    auth(),
-    validate(userValidation.updateUserDetailsFromOnboarding),
-    updateUserDetailsFromOnboarding
+    auth('manageNotes'),
+    validate(noteValidation.updateNote),
+    catchAsync(notesController.updateNote)
+  )
+  .delete(
+    auth('manageNotes'),
+    validate(noteValidation.deleteNote),
+    catchAsync(notesController.deleteNote)
   );
 
 export default router;

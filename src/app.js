@@ -9,9 +9,6 @@ import { errorConverter, errorHandler } from "./middlewares/error.js";
 import cookieParser from "cookie-parser";
 import mongoSanitize from "express-mongo-sanitize";
 
-
-
-
 const app = express();
 
 // Middleware to log all incoming requests

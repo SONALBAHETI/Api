@@ -22,7 +22,7 @@ const defaultRoutes = [
     route: userRoute,
   },
   {
-    path: "/notes", // Add the notes route to the default routes
+    path: "/notes", 
     route: notesRoute,
   },
 ];
